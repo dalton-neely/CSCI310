@@ -5,17 +5,239 @@
  */
 package csci310; 
 
+import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 /**
  *
  * @author Dalton
  */
 public class CSCI310 {
-
+    
+    String url = "jdbc:sqlite:sample.db";
+    Connection conn = null;
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        CSCI310 app = new CSCI310();
+        app.run();
         // TODO code application logic here
+    }
+
+    public void run(){
+        conn = getConnection(url);
+        createTable("CREATE TABLE IF NOT EXISTS classes (\n id integer,\n course text NOT NULL,\n students integer\n);");
+        insertTable(480, "Theroy of Algorithms", 11);
+        selectAll();
+        updateCourse("Advanced JAVA", 480);
+        updateStudents(55, 480);
+        updateId(480, 310);
+        selectAll();
+        deleteById(480);
+        query("DROP TABLE classes");
+        disconnect();
+    }
+    
+    public void disconnect(){
+        System.out.println("<DISCONNECT>");
+        try{
+            conn.close();
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void updateId(int _id, int _new){
+        System.out.println("<UPDATE> -> id");
+        PreparedStatement pstmt = null;
+        int affectedRows = 0;
+        String sql = "UPDATE classes SET id=? WHERE id=?";
+        try{
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, _new);
+            pstmt.setInt(2, _id);
+            affectedRows = pstmt.executeUpdate();
+            System.out.println(affectedRows + " Rows Affected");
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                if(!pstmt.isClosed())
+                    pstmt.close();
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    
+    public void updateCourse(String _course, int _id){
+        System.out.println("<UPDATE> -> course");
+        PreparedStatement pstmt = null;
+        int affectedRows = 0;
+        String sql = "UPDATE classes SET course=? WHERE id=?";
+        try{
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, _course);
+            pstmt.setInt(2, _id);
+            affectedRows = pstmt.executeUpdate();
+            System.out.println(affectedRows + " Rows Affected");
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                if(!pstmt.isClosed())
+                    pstmt.close();
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    
+    public void updateStudents(int _students, int _id){
+        System.out.println("<UPDATE> -> Students");
+        PreparedStatement pstmt = null;
+        int affectedRows = 0;
+        String sql = "UPDATE classes SET students=? WHERE id=?";
+        try{
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, _students);
+            pstmt.setInt(2, _id);
+            affectedRows = pstmt.executeUpdate();
+            System.out.println(affectedRows + " Rows Affected");
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                if(!pstmt.isClosed())
+                    pstmt.close();
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    
+    public Connection getConnection(String _url){
+        System.out.println("<GET CONNECTION>");
+        try{
+            conn = DriverManager.getConnection(_url);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        if(conn != null){
+            System.out.println("Connection made to " + _url);
+        }else{
+            System.out.println("Conection not made");
+        }
+        return conn;
+    }
+    
+    public void query(String _sql){
+        System.out.println("<QUERY> -> " + _sql);
+        Statement stmt = null;
+        try{
+            stmt = conn.createStatement();
+            stmt.execute(_sql);
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                if(!stmt.isClosed())
+                    stmt.close();
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    
+    public void createTable(String _sql){
+        System.out.println("<CREATE TABLE>");
+        Statement stmt = null;
+        try{
+            stmt = conn.createStatement();
+            stmt.execute(_sql);
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try{
+                stmt.close();
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    
+    public void insertTable(int _id, String _course, int _students){
+        System.out.println("<INSERT>");
+        PreparedStatement pstmt = null;
+        int affectedRows = 0;
+        try{
+            pstmt = conn.prepareStatement("INSERT INTO classes(id, course, students) VALUES(?,?,?)");
+            pstmt.setInt(1, _id);
+            pstmt.setString(2, _course);
+            pstmt.setInt(3, _students);
+            affectedRows = pstmt.executeUpdate();
+            System.out.println(affectedRows + " Rows Affected");
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                pstmt.close();
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    
+    public void deleteById(int _id){
+        System.out.println("<DELETE>");
+        PreparedStatement pstmt = null;
+        int affectedRows = 0;
+        try{
+            pstmt = conn.prepareStatement("DELETE FROM classes WHERE id=?");
+            //pstmt.setString(1, _table);
+            pstmt.setInt(1, _id);
+            affectedRows = pstmt.executeUpdate();
+            System.out.println(affectedRows + " Rows Affected");
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                pstmt.close();
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    
+    public void selectAll(){
+        System.out.println("<SELECT>");
+        String sql = "SELECT * FROM classes";
+        Statement stmt = null;
+        ResultSet rs = null;
+        try{
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                System.out.println(rs.getInt("id") + "\t" + rs.getString("course") + "\t" + rs.getInt("students"));
+            }
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                if(!stmt.isClosed())
+                    stmt.close();
+                if(!rs.isClosed())
+                    rs.close();
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
     }
     
 }
