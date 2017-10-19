@@ -33,15 +33,18 @@ public class CSCI310 {
     public void run(){
         conn = getConnection(url);
         createTable("CREATE TABLE IF NOT EXISTS classes (\n id integer,\n course text NOT NULL,\n students integer\n);");
-        insertTable(480, "Theroy of Algorithms", 11);
-        selectAll();
-        updateCourse("Advanced JAVA", 480);
-        updateStudents(55, 480);
-        updateId(480, 310);
-        selectAll();
-        deleteById(480);
-        query("DROP TABLE classes");
-        disconnect();
+//        insertTable(480, "Theroy of Algorithms", 11);
+//        selectAll();
+//        updateCourse("Advanced JAVA", 480);
+//        updateStudents(55, 480);
+//        updateId(480, 310);
+//        selectAll();
+//        getCourseById(310);
+//        getStudentsById(310);
+//        getIdByCourse("Advanced JAVA");
+//        deleteById(310);
+//        query("DROP TABLE classes");
+//        disconnect();
     }
     
     public void disconnect(){
@@ -68,8 +71,7 @@ public class CSCI310 {
             System.out.println(e.getMessage());
         }finally{
             try{
-                if(!pstmt.isClosed())
-                    pstmt.close();
+                pstmt.close();
             }catch(SQLException e){
                 System.out.println(e.getMessage());
             }
@@ -91,8 +93,7 @@ public class CSCI310 {
             System.out.println(e.getMessage());
         }finally{
             try{
-                if(!pstmt.isClosed())
-                    pstmt.close();
+                pstmt.close();
             }catch(SQLException e){
                 System.out.println(e.getMessage());
             }
@@ -114,8 +115,7 @@ public class CSCI310 {
             System.out.println(e.getMessage());
         }finally{
             try{
-                if(!pstmt.isClosed())
-                    pstmt.close();
+                pstmt.close();
             }catch(SQLException e){
                 System.out.println(e.getMessage());
             }
@@ -137,22 +137,24 @@ public class CSCI310 {
         return conn;
     }
     
-    public void query(String _sql){
+    public boolean query(String _sql){
         System.out.println("<QUERY> -> " + _sql);
         Statement stmt = null;
+        boolean result = false;
         try{
             stmt = conn.createStatement();
-            stmt.execute(_sql);
+            result = stmt.execute(_sql);
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }finally{
             try{
-                if(!stmt.isClosed())
-                    stmt.close();
+                stmt.close();
             }catch(SQLException e){
                 System.out.println(e.getMessage());
             }
+            return result;
         }
+        //return result;
     }
     
     public void createTable(String _sql){
@@ -215,6 +217,84 @@ public class CSCI310 {
         }
     }
     
+    public String getCourseById(int _id){
+        System.out.println("<GET COURSE BY ID>");
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String sql = "SELECT course FROM classes WHERE id=?";
+        String result = null;
+        try{
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, _id);
+            rs = pstmt.executeQuery();
+            rs.next();
+            result = rs.getString("course");
+            System.out.println(result);
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                pstmt.close();
+                rs.close();
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return result;
+    }
+    
+    public int getStudentsById(int _id){
+        System.out.println("<GET STUDENTS BY ID>");
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String sql = "SELECT students FROM classes WHERE id=?";
+        int result = 0;
+        try{
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, _id);
+            rs = pstmt.executeQuery();
+            rs.next();
+            result = rs.getInt("students");
+            System.out.println(result);
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                pstmt.close();
+                rs.close();
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return result;
+    }
+    
+    public int getIdByCourse(String _course){
+        System.out.println("<GET ID BY COURSE>");
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String sql = "SELECT id FROM classes WHERE course=?";
+        int result = 0;
+        try{
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, _course);
+            rs = pstmt.executeQuery();
+            rs.next();
+            result = rs.getInt("id");
+            System.out.println(result);
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                pstmt.close();
+                rs.close();
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return result;
+    }
+    
     public void selectAll(){
         System.out.println("<SELECT>");
         String sql = "SELECT * FROM classes";
@@ -230,10 +310,8 @@ public class CSCI310 {
             System.out.println(e.getMessage());
         }finally{
             try{
-                if(!stmt.isClosed())
-                    stmt.close();
-                if(!rs.isClosed())
-                    rs.close();
+                stmt.close();
+                rs.close();
             }catch(SQLException e){
                 System.out.println(e.getMessage());
             }
