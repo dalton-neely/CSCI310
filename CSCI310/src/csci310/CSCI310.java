@@ -48,7 +48,7 @@ public class CSCI310 {
     }
     
     public void disconnect(){
-        System.out.println("<DISCONNECT>");
+        //System.out.println("<DISCONNECT>");
         try{
             conn.close();
         }catch(SQLException e){
@@ -56,17 +56,21 @@ public class CSCI310 {
         }
     }
     
-    public void updateId(int _id, int _new){
-        System.out.println("<UPDATE> -> id");
+    public boolean updateId(int _id, int _new){
+        //System.out.println("<UPDATE> -> id");
         PreparedStatement pstmt = null;
         int affectedRows = 0;
+        boolean returnValue = false;
         String sql = "UPDATE classes SET id=? WHERE id=?";
         try{
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, _new);
             pstmt.setInt(2, _id);
             affectedRows = pstmt.executeUpdate();
-            System.out.println(affectedRows + " Rows Affected");
+            //System.out.println(affectedRows + " Rows Affected");
+            if(affectedRows > 0){
+                returnValue = true;
+            }
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }finally{
@@ -75,20 +79,25 @@ public class CSCI310 {
             }catch(SQLException e){
                 System.out.println(e.getMessage());
             }
+            return returnValue;
         }
     }
     
-    public void updateCourse(String _course, int _id){
-        System.out.println("<UPDATE> -> course");
+    public boolean updateCourse(String _course, int _id){
+        //System.out.println("<UPDATE> -> course");
         PreparedStatement pstmt = null;
         int affectedRows = 0;
+        boolean returnValue = false;
         String sql = "UPDATE classes SET course=? WHERE id=?";
         try{
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, _course);
             pstmt.setInt(2, _id);
             affectedRows = pstmt.executeUpdate();
-            System.out.println(affectedRows + " Rows Affected");
+            //System.out.println(affectedRows + " Rows Affected");
+            if(affectedRows > 0){
+                returnValue = true;
+            }
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }finally{
@@ -97,20 +106,25 @@ public class CSCI310 {
             }catch(SQLException e){
                 System.out.println(e.getMessage());
             }
+            return returnValue;
         }
     }
     
-    public void updateStudents(int _students, int _id){
-        System.out.println("<UPDATE> -> Students");
+    public boolean updateStudents(int _students, int _id){
+        //System.out.println("<UPDATE> -> Students");
         PreparedStatement pstmt = null;
         int affectedRows = 0;
+        boolean returnValue = false;
         String sql = "UPDATE classes SET students=? WHERE id=?";
         try{
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, _students);
             pstmt.setInt(2, _id);
             affectedRows = pstmt.executeUpdate();
-            System.out.println(affectedRows + " Rows Affected");
+            //System.out.println(affectedRows + " Rows Affected");
+            if(affectedRows > 0){
+                returnValue = true;
+            }
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }finally{
@@ -119,11 +133,12 @@ public class CSCI310 {
             }catch(SQLException e){
                 System.out.println(e.getMessage());
             }
+            return returnValue;
         }
     }
     
     public Connection getConnection(String _url){
-        System.out.println("<GET CONNECTION>");
+        //System.out.println("<GET CONNECTION>");
         try{
             conn = DriverManager.getConnection(_url);
         }catch(Exception e){
@@ -138,7 +153,7 @@ public class CSCI310 {
     }
     
     public boolean query(String _sql){
-        System.out.println("<QUERY> -> " + _sql);
+        //System.out.println("<QUERY> -> " + _sql);
         Statement stmt = null;
         boolean result = false;
         try{
@@ -157,12 +172,13 @@ public class CSCI310 {
         //return result;
     }
     
-    public void createTable(String _sql){
-        System.out.println("<CREATE TABLE>");
+    public boolean createTable(String _sql){
+        //System.out.println("<CREATE TABLE>");
         Statement stmt = null;
+        boolean returnValue = false;
         try{
             stmt = conn.createStatement();
-            stmt.execute(_sql);
+            returnValue = stmt.execute(_sql);
         }catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -171,11 +187,12 @@ public class CSCI310 {
             }catch(SQLException e){
                 System.out.println(e.getMessage());
             }
+            return returnValue;
         }
     }
     
     public void insertTable(int _id, String _course, int _students){
-        System.out.println("<INSERT>");
+        //System.out.println("<INSERT>");
         PreparedStatement pstmt = null;
         int affectedRows = 0;
         try{
@@ -184,7 +201,7 @@ public class CSCI310 {
             pstmt.setString(2, _course);
             pstmt.setInt(3, _students);
             affectedRows = pstmt.executeUpdate();
-            System.out.println(affectedRows + " Rows Affected");
+            //System.out.println(affectedRows + " Rows Affected");
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }finally{
@@ -196,16 +213,20 @@ public class CSCI310 {
         }
     }
     
-    public void deleteById(int _id){
-        System.out.println("<DELETE>");
+    public boolean deleteById(int _id){
+        //System.out.println("<DELETE>");
         PreparedStatement pstmt = null;
         int affectedRows = 0;
+        boolean returnValue = false;
         try{
             pstmt = conn.prepareStatement("DELETE FROM classes WHERE id=?");
             //pstmt.setString(1, _table);
             pstmt.setInt(1, _id);
             affectedRows = pstmt.executeUpdate();
-            System.out.println(affectedRows + " Rows Affected");
+            //System.out.println(affectedRows + " Rows Affected");
+            if(affectedRows == 1){
+                returnValue = true;
+            }
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }finally{
@@ -214,11 +235,12 @@ public class CSCI310 {
             }catch(SQLException e){
                 System.out.println(e.getMessage());
             }
+            return returnValue;
         }
     }
     
     public String getCourseById(int _id){
-        System.out.println("<GET COURSE BY ID>");
+        //System.out.println("<GET COURSE BY ID>");
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         String sql = "SELECT course FROM classes WHERE id=?";
@@ -229,7 +251,7 @@ public class CSCI310 {
             rs = pstmt.executeQuery();
             rs.next();
             result = rs.getString("course");
-            System.out.println(result);
+            //System.out.println(result);
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }finally{
@@ -244,7 +266,7 @@ public class CSCI310 {
     }
     
     public int getStudentsById(int _id){
-        System.out.println("<GET STUDENTS BY ID>");
+        //System.out.println("<GET STUDENTS BY ID>");
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         String sql = "SELECT students FROM classes WHERE id=?";
@@ -255,7 +277,7 @@ public class CSCI310 {
             rs = pstmt.executeQuery();
             rs.next();
             result = rs.getInt("students");
-            System.out.println(result);
+            //System.out.println(result);
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }finally{
@@ -270,7 +292,7 @@ public class CSCI310 {
     }
     
     public int getIdByCourse(String _course){
-        System.out.println("<GET ID BY COURSE>");
+        //System.out.println("<GET ID BY COURSE>");
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         String sql = "SELECT id FROM classes WHERE course=?";
@@ -281,7 +303,7 @@ public class CSCI310 {
             rs = pstmt.executeQuery();
             rs.next();
             result = rs.getInt("id");
-            System.out.println(result);
+            //System.out.println(result);
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }finally{
@@ -296,7 +318,7 @@ public class CSCI310 {
     }
     
     public void selectAll(){
-        System.out.println("<SELECT>");
+        //System.out.println("<SELECT>");
         String sql = "SELECT * FROM classes";
         Statement stmt = null;
         ResultSet rs = null;
