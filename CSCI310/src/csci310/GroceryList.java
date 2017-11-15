@@ -19,6 +19,10 @@ public class GroceryList implements Groceries {
         quantity = _qty;
     }
     
+    public int compareByName(GroceryList object){
+        return name.compareTo(object.name);
+    }
+    
     @Override
     public String toString(){
         return "("+name+", "+quantity+")";

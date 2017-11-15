@@ -36,6 +36,10 @@ public class CSCI310 {
         Collections.sort(groceries);
     }
     
+    public void sortByName(){
+        System.out.println("");
+    }
+    
     public void run(){
         
     }
