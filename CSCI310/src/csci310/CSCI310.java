@@ -16,6 +16,8 @@ public class CSCI310 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        CSCI310 instance = new CSCI310();
+        instance.run();
     }
     
 }

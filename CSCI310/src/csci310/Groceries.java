@@ -10,5 +10,6 @@ package csci310;
  * @author Dalton
  */
 public interface Groceries extends Comparable <Groceries> {
-    
+    @Override
+    public String toString();
 }

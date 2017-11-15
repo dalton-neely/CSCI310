@@ -12,7 +12,12 @@ package csci310;
 public class GroceryList implements Groceries {
     
     public String name;
-    public int qty;
+    public int quantity;
+    
+    @Override
+    public String toString(){
+        return "("+name+", "+quantity+")";
+    }
     
     @Override
     public int compareTo(Groceries o) {
@@ -25,10 +30,10 @@ public class GroceryList implements Groceries {
             if(name.compareTo(groceryList.name) > 0){
                 return 1;
             }
-            if(qty < groceryList.qty){
+            if(quantity < groceryList.quantity){
                 return -1;
             }
-            if(qty > groceryList.qty){
+            if(quantity > groceryList.quantity){
                 return 1;
             }
             return 0;
