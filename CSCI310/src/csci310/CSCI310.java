@@ -5,6 +5,8 @@
  */
 package csci310; 
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Dalton
@@ -19,6 +21,8 @@ public class CSCI310 {
         CSCI310 instance = new CSCI310();
         instance.run();
     }
+    
+    ArrayList<GroceryList> groceries = new ArrayList<GroceryList>();
     
     public void run(){
         
