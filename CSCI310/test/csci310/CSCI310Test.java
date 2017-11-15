@@ -157,11 +157,13 @@ public class CSCI310Test {
         System.out.println("createTable");
         String _sql = "";
         CSCI310 instance = new CSCI310();
+        instance.run();
         boolean expResult = false;
         boolean result = instance.createTable(_sql);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instance.createTable("CREATE TABLE IF NOT EXISTS classes (\\n id integer,\\n course text NOT NULL,\\n students integer\\n);");
+        instance.insertTable(480, "Theroy of Algorithms", 11);
+        assertTrue(instance.getCourseById(480).compareTo("Theroy of Algorithms") == 0);
     }
 
     /**
