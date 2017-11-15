@@ -78,10 +78,10 @@ public class CSCI310Test {
         CSCI310 instance = new CSCI310();
         instance.createCollections();
         instance.sortGroceryList();
-        assertEquals(new GroceryList("Grapes", 1), instance.groceries.get(0));
-        assertEquals(new GroceryList("Apples", 5), instance.groceries.get(1));
-        assertEquals(new GroceryList("Pickles", 7), instance.groceries.get(2));
-        assertEquals(new GroceryList("Oranges", 20), instance.groceries.get(3));
+        assertTrue(instance.groceries.get(0).equals(new GroceryList("Grapes", 1)));
+        assertTrue(instance.groceries.get(1).equals(new GroceryList("Apples", 5)));
+        assertTrue(instance.groceries.get(2).equals(new GroceryList("Pickles", 7)));
+        assertTrue(instance.groceries.get(3).equals(new GroceryList("Oranges", 20)));
     }
     
     @Test
