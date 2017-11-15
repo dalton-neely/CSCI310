@@ -24,6 +24,13 @@ public class CSCI310 {
     
     ArrayList<GroceryList> groceries = new ArrayList<GroceryList>();
     
+    public void createCollections(){
+        groceries.add(new GroceryList("Apples", 5));
+        groceries.add(new GroceryList("Grapes", 1));
+        groceries.add(new GroceryList("Oranges", 20));
+        groceries.add(new GroceryList("Pickles", 7));
+    }
+    
     public void run(){
         
     }
