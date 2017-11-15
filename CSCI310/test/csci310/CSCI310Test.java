@@ -187,13 +187,11 @@ public class CSCI310Test {
     @Test
     public void testDeleteById() {
         System.out.println("deleteById");
-        int _id = 0;
+        int _id = 480;
         CSCI310 instance = new CSCI310();
-        boolean expResult = false;
+        instance.run();
         boolean result = instance.deleteById(_id);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(result);
     }
 
     /**
@@ -202,13 +200,12 @@ public class CSCI310Test {
     @Test
     public void testGetCourseById() {
         System.out.println("getCourseById");
-        int _id = 0;
+        int _id = 480;
         CSCI310 instance = new CSCI310();
-        String expResult = "";
+        instance.run();
+        String expResult = "Theroy of Algorithms";
         String result = instance.getCourseById(_id);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
