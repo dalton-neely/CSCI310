@@ -33,18 +33,18 @@ public class CSCI310 {
     public void run(){
         conn = getConnection(url);
         createTable("CREATE TABLE IF NOT EXISTS classes (\n id integer,\n course text NOT NULL,\n students integer\n);");
-//        insertTable(480, "Theroy of Algorithms", 11);
-//        selectAll();
-//        updateCourse("Advanced JAVA", 480);
-//        updateStudents(55, 480);
-//        updateId(480, 310);
-//        selectAll();
-//        getCourseById(310);
-//        getStudentsById(310);
-//        getIdByCourse("Advanced JAVA");
-//        deleteById(310);
-//        query("DROP TABLE classes");
-//        disconnect();
+        insertTable(480, "Theroy of Algorithms", 11);
+        selectAll();
+        updateCourse("Advanced JAVA", 480);
+        updateStudents(55, 480);
+        updateId(480, 310);
+        selectAll();
+        getCourseById(310);
+        getStudentsById(310);
+        getIdByCourse("Advanced JAVA");
+        deleteById(310);
+        query("DROP TABLE classes");
+        disconnect();
     }
     
     public void disconnect(){
