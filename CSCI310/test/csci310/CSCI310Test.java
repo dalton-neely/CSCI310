@@ -92,14 +92,14 @@ public class CSCI310Test {
     @Test
     public void testUpdateId() {
         System.out.println("updateId");
-        int _id = 0;
-        int _new = 0;
+        int _id = 480;
+        int _new = 20;
         CSCI310 instance = new CSCI310();
-        boolean expResult = false;
+        instance.run();
+        boolean expResult = true;
         boolean result = instance.updateId(_id, _new);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(false, instance.updateId(200, 45));
     }
 
     /**
