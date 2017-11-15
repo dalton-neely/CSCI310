@@ -6,6 +6,7 @@
 package csci310; 
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  *
@@ -29,6 +30,10 @@ public class CSCI310 {
         groceries.add(new GroceryList("Grapes", 1));
         groceries.add(new GroceryList("Oranges", 20));
         groceries.add(new GroceryList("Pickles", 7));
+    }
+    
+    public void sortGroceryList(){
+        Collections.sort(groceries);
     }
     
     public void run(){

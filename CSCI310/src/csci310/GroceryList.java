@@ -28,17 +28,17 @@ public class GroceryList implements Groceries {
     public int compareTo(Groceries o) {
         if(o instanceof GroceryList){
             GroceryList groceryList = (GroceryList) o;
-            //Compare the name First before the quantity
-            if(name.compareTo(groceryList.name) < 0){
-                return -1;
-            }
-            if(name.compareTo(groceryList.name) > 0){
-                return 1;
-            }
+            //Compare the quantity before the name
             if(quantity < groceryList.quantity){
                 return -1;
             }
             if(quantity > groceryList.quantity){
+                return 1;
+            }
+            if(name.compareTo(groceryList.name) < 0){
+                return -1;
+            }
+            if(name.compareTo(groceryList.name) > 0){
                 return 1;
             }
             return 0;
