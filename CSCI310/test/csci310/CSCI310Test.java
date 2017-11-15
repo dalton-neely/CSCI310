@@ -173,12 +173,12 @@ public class CSCI310Test {
     public void testInsertTable() {
         System.out.println("insertTable");
         int _id = 0;
-        String _course = "";
+        String _course = "sfgfdg";
         int _students = 0;
         CSCI310 instance = new CSCI310();
+        instance.run();
         instance.insertTable(_id, _course, _students);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(instance.getCourseById(0).compareTo("sfgfdg") == 0);
     }
 
     /**
