@@ -136,33 +136,17 @@ public class CSCI310Test {
     }
 
     /**
-     * Test of getConnection method, of class CSCI310.
-     */
-    @Test
-    public void testGetConnection() {
-        System.out.println("getConnection");
-        String _url = "";
-        CSCI310 instance = new CSCI310();
-        Connection expResult = null;
-        Connection result = instance.getConnection(_url);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of query method, of class CSCI310.
      */
     @Test
     public void testQuery() {
         System.out.println("query");
-        String _sql = "";
+        String _sql = "DROP TABLE kjklj";
         CSCI310 instance = new CSCI310();
+        instance.run();
         boolean expResult = false;
         boolean result = instance.query(_sql);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**

@@ -163,6 +163,7 @@ public class CSCI310 {
         try{
             stmt = conn.createStatement();
             result = stmt.execute(_sql);
+            return result;
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }finally{
