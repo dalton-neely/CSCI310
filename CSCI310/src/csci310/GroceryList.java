@@ -14,6 +14,11 @@ public class GroceryList implements Groceries {
     public String name;
     public int quantity;
     
+    GroceryList(String _name, int _qty){
+        name = _name;
+        quantity = _qty;
+    }
+    
     @Override
     public String toString(){
         return "("+name+", "+quantity+")";
