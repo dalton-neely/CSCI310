@@ -42,11 +42,94 @@ public class CSCI310Test {
      */
     @Test
     public void testMain() {
-        System.out.println("main");
-        String[] args = null;
-        CSCI310.main(args);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("main not tested");
     }
     
+    @Test
+    public void testRun(){
+        System.out.println("run not tested");
+    }
+    
+    @Test
+    public void testPrintAllGroceries(){
+        System.out.println("printAllGroceries not tested");
+    }
+    
+    
+    //Testing without using equals override method
+    @Test
+    public void testCreateCollections(){
+        CSCI310 instance = new CSCI310();
+        instance.createCollections();
+        assertEquals("Apples", instance.groceries.get(0).name);
+        assertEquals(5, instance.groceries.get(0).quantity);
+        assertEquals("Grapes", instance.groceries.get(1).name);
+        assertEquals(1, instance.groceries.get(1).quantity);
+        assertEquals("Oranges", instance.groceries.get(2).name);
+        assertEquals(20, instance.groceries.get(2).quantity);
+        assertEquals("Pickles", instance.groceries.get(3).name);
+        assertEquals(7, instance.groceries.get(3).quantity);
+    }
+    
+    
+    //Testing with using equals override method
+    @Test
+    public void testSortGroceryList(){
+        CSCI310 instance = new CSCI310();
+        instance.createCollections();
+        instance.sortGroceryList();
+        assertEquals(new GroceryList("Grapes", 1), instance.groceries.get(0));
+        assertEquals(new GroceryList("Apples", 5), instance.groceries.get(1));
+        assertEquals(new GroceryList("Pickles", 7), instance.groceries.get(2));
+        assertEquals(new GroceryList("Oranges", 20), instance.groceries.get(3));
+    }
+    
+    @Test
+    public void testSortByName(){
+        CSCI310 instance = new CSCI310();
+        instance.createCollections();
+        instance.sortByName();
+        assertEquals(new GroceryList("Apples", 5), instance.groceries.get(0));
+        assertEquals(new GroceryList("Grapes", 1), instance.groceries.get(1));
+        assertEquals(new GroceryList("Oranges", 20), instance.groceries.get(2));
+        assertEquals(new GroceryList("Pickles", 7), instance.groceries.get(3));
+    }
+    
+    @Test
+    public void testCompareByName(){
+        GroceryList apples = new GroceryList("Apples", 7);
+        GroceryList bananas = new GroceryList("Bananas", 1);
+        int result = apples.compareByName(bananas);
+        assertEquals(result, -1);
+        assertEquals(bananas.compareByName(apples), 1);
+    }
+    
+    @Test
+    public void testCompareTo(){
+        GroceryList apples = new GroceryList("Apples", 7);
+        GroceryList apples2 = new GroceryList("Apples", 1);
+        GroceryList grapes = new GroceryList("Grapes", 45);
+        //Showing that if the names are equal the compare method then looks
+        //at the quantities of the item
+        assertEquals(apples2.compareTo(apples), -1);
+        assertEquals(apples.compareTo(apples2), 1);
+        assertEquals(grapes.compareTo(apples), 1);
+        assertEquals(grapes.compareTo(apples2), 1);
+        assertEquals(apples2.compareTo(grapes), -1);
+        assertEquals(apples.compareTo(grapes), -1);
+    }
+    
+    @Test
+    public void testPrint(){
+        System.out.println("print not tested");
+    }
+    
+    @Test
+    public void testGroceryList(){
+        String name = "Apples";
+        int quantity = 7;
+        GroceryList item = new GroceryList(name, quantity);
+        assertEquals(name, item.name);
+        assertEquals(quantity, item.quantity);
+    }
 }
