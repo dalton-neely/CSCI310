@@ -20,4 +20,8 @@ public class CSCI310 {
         instance.run();
     }
     
+    public void run(){
+        
+    }
+    
 }
