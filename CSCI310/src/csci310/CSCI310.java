@@ -37,11 +37,29 @@ public class CSCI310 {
     }
     
     public void sortByName(){
+        for(int i = 0; i < groceries.size(); i++){
+            for(int j = 0; j < groceries.size() - 1; j++){
+                if(groceries.get(j).name.compareTo(groceries.get(j + 1).name) > 0){
+                    GroceryList temp = new GroceryList();
+                    temp.copy(groceries.get(j));
+                    groceries.get(j).copy(groceries.get(j + 1));
+                    groceries.get(j + 1).copy(temp);
+                }
+            }
+        }
         System.out.println("");
     }
     
+    public void printAllGroceries(){
+        for(int i = 0; i < groceries.size(); i++){
+            System.out.println(groceries.get(i).toString());
+        }
+    }
+    
     public void run(){
-        
+        createCollections();
+        sortByName();
+        printAllGroceries();
     }
     
 }

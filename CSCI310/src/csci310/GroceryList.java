@@ -14,9 +14,19 @@ public class GroceryList implements Groceries {
     public String name;
     public int quantity;
     
+    GroceryList(){
+        name = null;
+        quantity = 0;
+    }
+    
     GroceryList(String _name, int _qty){
         name = _name;
         quantity = _qty;
+    }
+    
+    public void copy(GroceryList object){
+        name = object.name;
+        quantity = object.quantity;
     }
     
     public int compareByName(GroceryList object){
@@ -26,6 +36,14 @@ public class GroceryList implements Groceries {
     @Override
     public String toString(){
         return "("+name+", "+quantity+")";
+    }
+    
+    public boolean equals(GroceryList o){
+        if(name == o.name && quantity == o.quantity){
+            return true;
+        }else{
+            return false;
+        }
     }
     
     @Override
