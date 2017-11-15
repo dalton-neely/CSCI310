@@ -6,6 +6,7 @@
 package csci310;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -43,11 +44,7 @@ public class CSCI310Test {
      */
     @Test
     public void testMain() {
-        System.out.println("main");
-        String[] args = null;
-        CSCI310.main(args);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("main not tested");
     }
 
     /**
@@ -55,11 +52,7 @@ public class CSCI310Test {
      */
     @Test
     public void testRun() {
-        System.out.println("run");
-        CSCI310 instance = new CSCI310();
-        instance.run();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("run not tested");
     }
 
     /**
@@ -69,9 +62,28 @@ public class CSCI310Test {
     public void testDisconnect() {
         System.out.println("disconnect");
         CSCI310 instance = new CSCI310();
+        //instance.conn = instance.getConnection("jdbc:sqlite:sample.db");
         instance.disconnect();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        boolean value;
+        try{
+            value = instance.conn.isClosed();
+        }catch(SQLException e){
+            value = true;
+        }
+        assertTrue(value);
+    }
+    
+    @Test
+    public void testConstructor(){
+        System.out.println("testing constructor");
+        CSCI310 instance = new CSCI310();
+        boolean value = false;
+        try{
+            value = instance.conn.isValid(0);
+        }catch(SQLException e){
+            
+        }
+        assertTrue(value);
     }
 
     /**

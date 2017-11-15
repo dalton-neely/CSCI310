@@ -26,8 +26,12 @@ public class CSCI310 {
      */
     public static void main(String[] args) {
         CSCI310 app = new CSCI310();
-        app.run();
+        //app.run();
         // TODO code application logic here
+    }
+    
+    public CSCI310(){
+        conn = getConnection("jdbc:sqlite:sample.db");
     }
 
     public void run(){
