@@ -38,6 +38,7 @@ public class GroceryList implements Groceries {
         return "("+name+", "+quantity+")";
     }
     
+    @Override
     public boolean equals(GroceryList o){
         if(name == o.name && quantity == o.quantity){
             return true;

@@ -12,4 +12,7 @@ package csci310;
 public interface Groceries extends Comparable <Groceries> {
     @Override
     public String toString();
+    public boolean equals(GroceryList o);
+    public int compareByName(GroceryList object);
+    public void copy(GroceryList object);
 }
